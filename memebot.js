@@ -12,8 +12,8 @@ var Discord = require("discord.js");
 var bot = new Discord.Client();
 var request = require('request');
 
-var jsonfile = require('jsonfile')
-var util = require('util')
+var jsonfile = require('jsonfile');
+var util = require('util');
 var users = "";
 
 var file = '/home/justin/discordBot/users.json';
