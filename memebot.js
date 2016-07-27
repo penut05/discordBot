@@ -1,6 +1,4 @@
 //tail -2222f /var/log/node.log
-//7:53 PMcowpiesstart memebot
-//7:53 PMcowpiesstop memebot
 //ssh -p 56789 root@98.193.17.63
 //********************************
 //	Git commands
@@ -18,8 +16,8 @@ var jsonfile = require('jsonfile')
 var util = require('util')
 var users = "";
 
-var file = 'root/JUSTIN/memebot/users.json';
-var timeFile = 'root/JUSTIN/memebot/timestamp.json';
+var file = '/home/justin/discordBot/users.json';
+//var timeFile = '/home/justin/discordBot/timestamp.json';
 
 //when the bot is ready
 bot.on("ready", function () {
