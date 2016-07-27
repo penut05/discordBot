@@ -23,7 +23,7 @@ var timeFile = 'root/JUSTIN/memebot/timestamp.json';
 
 //when the bot is ready
 bot.on("ready", function () {
-	//console.log("Ready to begin! Serving in " + bot.channels.length + " channels");
+	console.log("Ready to begin! Serving in " + bot.channels.length + " channels");
 });
 
 //when the bot disconnects
