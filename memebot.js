@@ -19,7 +19,7 @@ var password = "";
 jsonfile.readFile(userInformation, function(err, userData) {
 	username = userData.email;
 	password = userData.password;
-}
+}];
 
 bot.login(username, password);
 
