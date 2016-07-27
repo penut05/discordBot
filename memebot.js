@@ -2,6 +2,13 @@
 //7:53 PMcowpiesstart memebot
 //7:53 PMcowpiesstop memebot
 //ssh -p 56789 root@98.193.17.63
+//********************************
+//	Git commands
+//	git status
+//	git clone
+//	git add <filename>
+//	git commit -m "<message here>"
+//	git push
 
 var Discord = require("discord.js");
 var bot = new Discord.Client();
