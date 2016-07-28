@@ -24,16 +24,16 @@ var message = {
 var userInformation = '/home/justin/discordBot/memebotUser.json';
 var file = '/home/justin/discordBot/users.json';
 
-
+/*
 var username = "";
 var password = "";
 jsonfile.readFile(userInformation, function(err, userData) {
-    var usrDta = userData;
-    username = usrDta.email;
-    password = usrDta.password;
+    username = userData.email;
+    password = userData.password;
 });
+*/
 
-bot.login(username, password);
+bot.login("jjp0610@aol.com", "bot123");
 
 //when the bot is ready
 bot.on("ready", function() {
