@@ -131,9 +131,19 @@ bot.on("message", function(msg) {
     }
 
     if (msg.content.indexOf(".coins") === 0) {
-        var usersCoins = getCurrentUserCoins(sender);
-        bot.deleteMessage(msg);
-        bot.reply(msg, usersCoins);
+        jsonfile.readFile(file, function(err, obj) {
+            var msg = "";
+            for (var i = 0; i < obj.length; i++) {
+                if (obj[i].name === sender) {
+                    if (obj[i].coins === 0) {
+                        bot.reply(msg, "You have no coins!");
+                    } else {
+                        bot.reply(msg, 'You have: ' + obj[i].coins + " coins left.");
+                    }
+                }
+            }
+            bot.deleteMessage(msg);
+        })
     }
 
     if (msg.content.indexOf(".spin") === 0) {
@@ -216,9 +226,9 @@ bot.on("message", function(msg) {
                 bot.reply(msg, msgString);
                 //Log all messages
                 //fileLog.appendFile(logfile, msgString + "\n", function(err) {
-                  //  if (err) {
-                    //    return console.log(err);
-                    //}
+                //  if (err) {
+                //    return console.log(err);
+                //}
                 //});
             }
             if (!inDataBase) {
@@ -297,18 +307,6 @@ var getServerChannelByName = function(server, name) {
 }
 
 //Gets the current users coins
-var getCurrentUserCoins = function(sender) {
-    var msg = "";
-    jsonfile.readFile(file, function(err, obj) {
-        for (var i = 0; i < obj.length; i++) {
-            if (obj[i].name === sender) {
-                if (obj[i].coins === 0) {
-                    msg = "You have no coins!";
-                } else {
-                    msg = 'You have: ' + obj[i].coins + " coins left.";
-                }
-            }
-        }
-        return msg.toString();
-    })
+var getCurrentUserCoins = function getCurrentUserCoins(sender) {
+
 }
