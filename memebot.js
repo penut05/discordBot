@@ -11,6 +11,7 @@ var message = {
     info: "Memebot69 commands are: .help, .spin <Bet Amount>, .coins, .top, and .cowpies. To spin the slot machine, type .spin ###. Replace the ### with your bet ammount",
     error: "Error encounted, please contact Pakoola.",
     activeUser: "Already an active user.",
+    spinHelp: "Enter a valid entry. For example: .spin <bet ammount> '.spin 50'",
     addedToDatabase: "You have been added to the database.",
     addMeDatabase: "Please type .addme to add youself to the database.",
     spam: "FUCKING NORMIES, GET OFF OF MY FUCKING BOARD!!!!!@@!@!@",
@@ -176,7 +177,6 @@ bot.on("message", function(msg) {
                         } else {
                             if (!isNaN(userBet) && userBet > 0) {
                                 bot.sendMessage(msg, "| " + num1 + " | " + " | " + num2 + " | " + " | " + num3 + " |");
-
                                 if (num1 == num2 && num1 == num3 && num2 == num3) {
                                     if (num1 == 6 && num2 == 6 && num3 == 6) {
                                         users[i].coins -= 50;
@@ -207,7 +207,7 @@ bot.on("message", function(msg) {
                                     }
                                 }
                             } else {
-                                bot.sendMessage(msg, 'Type in a number next time.');
+                                bot.sendMessage(msg, message.spinHelp);
                                 break;
                             }
 
