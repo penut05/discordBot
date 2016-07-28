@@ -298,7 +298,7 @@ var getServerChannelByName = function(server, name) {
 }
 
 //Gets the current users coins
-function getCurrentUserCoins(sender) {
+var getCurrentUserCoins = function(sender) {
     var msg = "";
     jsonfile.readFile(file, function(err, obj) {
         for (var i = 0; i < obj.length; i++) {
@@ -311,5 +311,5 @@ function getCurrentUserCoins(sender) {
             }
         }
     })
-    return msg;
+    return msg.toString();
 }
