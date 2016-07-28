@@ -6,21 +6,6 @@ var jsonfile = require("jsonfile");
 var util = require("util");
 var users = "";
 
-//All message inputs (very generic)
-var message = {
-    info: "Memebot69 commands are: .help, .spin <Bet Amount>, .coins, .top, and .cowpies. To spin the slot machine, type .spin ###. Replace the ### with your bet ammount",
-    error: "Error encounted, please contact Pakoola.",
-    activeUser: "Already an active user.",
-    spinHelp: "Enter a valid entry. For example: .spin <bet ammount>",
-    addedToDatabase: "You have been added to the database.",
-    addMeDatabase: "Please type .addme to add youself to the database.",
-    spam: "FUCKING NORMIES, GET OFF OF MY FUCKING BOARD!!!!!@@!@!@",
-    cowpies1: "http://i.imgur.com/tY1Ij8w.jpg",
-    cowpies2: "",
-    shrug: "¯\_(ツ)_/¯"
-};
-
-
 //UPDATE THESE FIELDS WHEN CHANGING SERVERS
 var userInformation = "/home/justin/discordBot/memebotUser.json";
 var file = "/home/justin/discordBot/users.json";
@@ -47,10 +32,19 @@ bot.on("disconnected", () => {
     process.exit();
 });
 
-//*******************************************
-// Main process handling
-// Bot will take the message and check ifs
-//*******************************************
+var message = {
+    info: "Memebot69 commands are: .help, .spin <Bet Amount>, .coins, .top, and .cowpies. To spin the slot machine, type .spin ###. Replace the ### with your bet ammount",
+    error: "Error encounted, please contact Pakoola.",
+    activeUser: "Already an active user.",
+    spinHelp: "Enter a valid entry. For example: .spin <bet ammount>",
+    addedToDatabase: "You have been added to the database.",
+    addMeDatabase: "Please type .addme to add youself to the database.",
+    spam: "FUCKING NORMIES, GET OFF OF MY FUCKING BOARD!!!!!@@!@!@",
+    cowpies1: "http://i.imgur.com/tY1Ij8w.jpg",
+    cowpies2: "",
+    shrug: "¯\_(ツ)_/¯"
+};
+
 bot.on("message", function(msg) {
     var sender = msg.author.username;
     var server = getServerByNameWithMessage(msg, "thef00fRaidcallRIP");
@@ -58,7 +52,7 @@ bot.on("message", function(msg) {
     var timestamp = new Date();
 
     if (msg.content.indexOf(".help") === 0) {
-        bot.sendMessage(msg, message.info);
+        bot.sendMessage(msg, message.info.toString());
     }
 
     if (msg.content.indexOf(".cowpies") === 0) {
@@ -207,7 +201,7 @@ bot.on("message", function(msg) {
                                         }
                                     }
                                 } else {
-                                    bot.reply(msg, "Testing...?");
+                                    bot.sendMessage(msg, );
                                     break;
                                 }
                             }
