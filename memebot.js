@@ -201,7 +201,7 @@ bot.on("message", function(msg) {
                                         }
                                     }
                                 } else {
-                                    bot.sendMessage(msg, );
+                                    bot.sendMessage(msg, message.spinHelp.toString());
                                     break;
                                 }
                             }
