@@ -132,7 +132,6 @@ bot.on("message", function(msg) {
 
     if (msg.content.indexOf(".coins") === 0) {
         jsonfile.readFile(file, function(err, obj) {
-            console.log(obj);
             for (var i = 0; i < obj.length; i++) {
                 if (obj[i].name === sender) {
                     if (obj[i].coins == 0) {
@@ -218,6 +217,7 @@ bot.on("message", function(msg) {
                             }
 
                             msgString += "Coins left: " + users[i].coins + " ";
+                            console.log(".spin by " + sender + " Bet: " + userBet);
                         }
                     }
                 }
