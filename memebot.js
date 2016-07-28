@@ -11,7 +11,7 @@ var message = {
     info: "Memebot69 commands are: .help, .spin <Bet Amount>, .coins, .top, and .cowpies. To spin the slot machine, type .spin ###. Replace the ### with your bet ammount",
     error: "Error encounted, please contact Pakoola.",
     activeUser: "Already an active user.",
-    spinHelp: "Enter a valid entry. For example: .spin <bet ammount> '.spin 50'",
+    spinHelp: "Enter a valid entry. For example: .spin <bet ammount>",
     addedToDatabase: "You have been added to the database.",
     addMeDatabase: "Please type .addme to add youself to the database.",
     spam: "FUCKING NORMIES, GET OFF OF MY FUCKING BOARD!!!!!@@!@!@",
