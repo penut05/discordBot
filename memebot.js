@@ -6,8 +6,36 @@ var jsonfile = require('jsonfile');
 var util = require('util');
 var users = "";
 
+//All message inputs (very generic)
+var message = {
+    info: "Memebot69 commands are: .help, .spin <Bet Amount>, .coins, .top, and .cowpies. To spin the slot machine, type .spin ###. Replace the ### with your bet ammount",
+    error: "Error encounted, please contact Pakoola.",
+    activeUser: "Already an active user.",
+    addedToDatabase: "You have been added to the database.",
+    addMeDatabase: "Please type .addme to add youself to the database.",
+    spam: "FUCKING NORMIES, GET OFF OF MY FUCKING BOARD!!!!!@@!@!@",
+    cowpies1: "http://i.imgur.com/tY1Ij8w.jpg",
+    cowpies2: "",
+    shrug: "¯\_(ツ)_/¯"
+};
+
+/*
+//UPDATE THESE FIELDS WHEN CHANGING SERVERS
+//Windows file paths
+var timeFile = 'root/JUSTIN/memebot/timestamp.json';
+var userInformation = 'C:/Users/Justin/Dropbox/memebot/memebotUser.json';
+//Linux File paths
 var file = '/home/justin/discordBot/users.json';
-//var timeFile = '/home/justin/discordBot/timestamp.json';
+*/
+
+var username = "";
+var password = "";
+jsonfile.readFile(userInformation, function(err, userData) {
+    username = userData.email;
+    password = userData.password;
+});
+
+bot.login(username, password);
 
 //when the bot is ready
 bot.on("ready", function() {
@@ -21,23 +49,26 @@ bot.on("disconnected", () => {
 });
 
 //*******************************************
-//when the bot receives a message
+//	Main process handling
+//	Bot will take the message and check ifs
+//*******************************************
 bot.on("message", function(msg) {
     var sender = msg.author.username;
     var server = getServerByNameWithMessage(msg, "thef00fRaidcallRIP");
     var channel = getChannelByUserMessageAuthorString(msg, msg.content.substr(6));
+    var timestamp = new Date();
 
-    if (msg.content.indexOf(".info") === 0) {
-        bot.sendMessage(msg, 'Memebot69 commands are: .help, .spin, .coins, .top, and .cowpies');
+    if (msg.content.indexOf(".help") === 0) {
+        bot.sendMessage(msg, message.info);
     }
 
     if (msg.content.indexOf(".cowpies") === 0) {
-        bot.sendMessage(msg, 'http://i.imgur.com/tY1Ij8w.jpg');
+        bot.sendMessage(msg, message.cowpies1);
     }
     if (msg.content.indexOf(".addme") === 0) {
         jsonfile.readFile(file, function(err, obj) {
             var userObj = obj;
-            var allUsers = new Array();
+            var allUsers = [];
             for (var i = 0; i < obj.length; i++) {
                 allUsers.push(userObj[i].name);
             }
@@ -49,11 +80,14 @@ bot.on("message", function(msg) {
                     "time": d
                 });
                 jsonfile.writeFile(file, userObj, function(err) {
-                    //console.error(err)
+                    if (err) {
+                        console.error(err);
+                    }
                 })
-                bot.reply(msg, "You have been added to the database.");
+                bot.reply(msg, message.addedToDatabase);
+                console.log("Added " + sender + " to the user.json file. " + timestamp);
             } else if (allUsers.indexOf(sender) != -1) {
-                bot.reply(msg, "You are already an active user.");
+                bot.reply(msg, message.activeUser);
             }
             bot.deleteMessage(msg);
         })
@@ -99,23 +133,19 @@ bot.on("message", function(msg) {
     }
 
     if (msg.content.indexOf(".coins") === 0) {
-        var currentUser = msg.author.username;
-        jsonfile.readFile(file, function(err, obj) {
-            for (var i = 0; i < obj.length; i++) {
-                if (obj[i].name === currentUser) {
-                    bot.deleteMessage(msg);
-                    bot.reply(msg, 'You have: ' + obj[i].coins + " coins left.");
-                }
-            }
-        })
+        var usersCoins = getCurrentUserCoins(sender);
+        bot.deleteMessage(msg);
+        bot.reply(msg, usersCoins);
     }
+
     if (msg.content.indexOf(".spin") === 0) {
-        var d = new Date();
-        var t = new Date();
-        var currentUser = msg.author.username;
-        var num1 = Math.floor((Math.random() * 10) + 1);
-        var num2 = Math.floor((Math.random() * 10) + 1);
-        var num3 = Math.floor((Math.random() * 10) + 1);
+        bot.deleteMessage(msg);
+        var message = msg.toString();
+        var msgsplit = message.split(" ");
+        var userBet = parseInt(msgsplit[1]);
+        var num1 = Math.floor((Math.random() * 7) + 1);
+        var num2 = Math.floor((Math.random() * 7) + 1);
+        var num3 = Math.floor((Math.random() * 7) + 1);
         var machine_stuck = Math.floor((Math.random() * 1000) + 1);
 
         jsonfile.readFile(file, function(err, obj) {
@@ -129,55 +159,75 @@ bot.on("message", function(msg) {
                 var msgString = "";
 
                 for (var i = 0; i < arrayLength; i++) {
-                    if (users[i].name == currentUser) {
+                    if (users[i].name == sender) {
                         inDataBase = true;
                         valid = true;
-                        bot.sendMessage(msg, "| " + num1 + " | " + " | " + num2 + " | " + " | " + num3 + " |");
-
-                        if (num1 == num2 && num1 == num3 && num2 == num3) {
-                            if (num1 == 6 && num2 == 6 && num3 == 6) {
-                                users[i].coins = 0;
-                                msgString += "FUCKA YOU!! Lose all coins. ";
-                                console.log(users[i].name + " has lost all of their coins. ");
-                            } else if (num1 == 7 && num2 == 7 && num3 == 7) {
-                                msgString += "JACKPOT! You have gained 15 coins! ";
-                            } else {
-                                users[i].coins += 7;
-                                msgString += "3 of a kind! You have gained 7 coins! ";
-                            }
-                        } else if (num1 == num2 || num1 == num3 || num2 == num3) {
-                            users[i].coins += 5;
-                            msgString += "Two of a kind! You have gained 5 coins. ";
+                        inDataBase = true;
+                        if (userBet > users[i].coins) {
+                            bot.sendMessage(msg, "Fucking dirty slut you don't have that many coins to bet. ");
+                            break;
                         } else {
-                            if (machine_stuck == 1) {
-                                msgString += "Slot machine has malfunctioned in your favor..Gain 50 coins!!! ";
-                                users[i].coins += 50;
-                                console.log(users[i].name + ' broke the slot machine');
-                            } else {
-                                users[i].coins -= 1;
-                                msgString += "You lose 1 coin. ";
-                            }
-                        }
-                        msgString += 'Coins left: ' + users[i].coins;
+                            if (!isNaN(userBet) && userBet > 0) {
+                                bot.sendMessage(msg, "| " + num1 + " | " + " | " + num2 + " | " + " | " + num3 + " |");
 
-                        if (users[i].coins == 0) {
-                            msgString += users[i].coins + ' coins left. Damn jew stop using all of your coins... ';
-                            users[i].coins += 10;
+                                if (num1 == num2 && num1 == num3 && num2 == num3) {
+                                    if (num1 == 6 && num2 == 6 && num3 == 6) {
+                                        users[i].coins -= 50;
+                                        if (users[i].coins <= 0) {
+                                            users[i].coins == 0;
+                                            msgString += "Lose 50 coins. ";
+                                        } else {
+                                            msgString += "You now have 0 coins";
+                                        }
+                                    } else if (num1 == 7 && num2 == 7 && num3 == 7) {
+                                        users[i].coins += (userBet * 3);
+                                        msgString += "JACKPOT! You have gained " + userBet + " coins! ";
+                                    } else {
+                                        users[i].coins += userBet * 2.5;
+                                        msgString += "3 of a kind! You have gained " + userBet + " coins! ";
+                                    }
+                                } else if (num1 == num2 || num1 == num3 || num2 == num3) {
+                                    users[i].coins += userBet;
+                                    msgString += "2 of a kind! You have gained " + userBet + " coins! ";
+                                    break;
+                                } else {
+                                    if (machine_stuck == 1) {
+                                        msgString += "Slot machine has malfunctioned in your favor..Gain 50 coins!!! ";
+                                        users[i].coins += 50;
+                                    } else {
+                                        users[i].coins -= userBet;
+                                        msgString += "You lose " + userBet + " coins. ";
+                                    }
+                                }
+                            } else {
+                                bot.sendMessage(msg, 'Type in a number next time.');
+                                break;
+                            }
+
+                            if (users[i].coins <= 0) {
+                                bot.reply(msg, users[i].coins + ' coins left. Reload!');
+                                users[i].coins += 10;
+                            }
+
+                            msgString += "Coins left: " + users[i].coins + " ";
                         }
                     }
                 }
-                if (!inDataBase) {
-                    bot.reply(msg, "Please type .addme to add youself to the database.");
-                }
-                if ((msgString != "" || msgString != null) && inDataBase) {
-                    bot.deleteMessage(msg);
-                    bot.reply(msg, msgString);
-                }
-                //if(valid == false && inDataBase == true){
-                //bot.sendMessage(msg, 'Fucking autism stop spamming.');
-                //}
             }
+            if (msgString != "" && inDataBase) {
+                bot.reply(msg, msgString);
+                //Log all messages
+                fileLog.appendFile(logfile, msgString + "\n", function(err) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                });
 
+            }
+            if (!inDataBase) {
+                bot.reply(msg, message.addMeDatabase);
+            }
+            //Write to JSON file with user info after spin user = obj
             var record = users;
             jsonfile.writeFile(file, record, function(err) {
                 //console.error(err)
@@ -186,16 +236,9 @@ bot.on("message", function(msg) {
     }
 });
 
+
 //**Kyle's Bot Logic for finding users**
 //--------------------------------------
-
-/*function deleteThatNigga(msg){
-		function actuallyDeleteItLOL(msg){
-			//console.log(msg);
-			bot.deleteMessage(msg);
-		}
-		setTimeout(actuallyDeleteItLOL,10000);
-	}*/
 
 var getChannelByUserMessageAuthorString = function(message, name) {
     var channel = null;
@@ -247,16 +290,30 @@ var findUserByName = function(message, name) {
 }
 
 var getServerChannelByName = function(server, name) {
-        var channels = server.channels;
-        var channel = null;
+    var channels = server.channels;
+    var channel = null;
 
-        for (var i = 0; i < channels.length; i++) {
-            if (channels[i].name === name) {
-                channel = channels[i];
+    for (var i = 0; i < channels.length; i++) {
+        if (channels[i].name === name) {
+            channel = channels[i];
+        }
+    }
+    return channel;
+}
+
+//Gets the current users coins
+function getCurrentUserCoins(sender) {
+    var msg = "";
+    jsonfile.readFile(file, function(err, obj) {
+        for (var i = 0; i < obj.length; i++) {
+            if (obj[i].name === sender) {
+                if (obj[i].coins === 0) {
+                    msg = "You have no coins!";
+                } else {
+                    msg = 'You have: ' + obj[i].coins + " coins left.";
+                }
             }
         }
-        return channel;
-    }
-    //----------------------------------------------------
-
-bot.login("jjp0610@aol.com", "bot123");
+    })
+    return msg;
+}
