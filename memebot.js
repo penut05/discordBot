@@ -132,10 +132,10 @@ bot.on("message", function(msg) {
 
     if (msg.content.indexOf(".coins") === 0) {
         jsonfile.readFile(file, function(err, obj) {
-            var msg = "";
+            console.log(obj);
             for (var i = 0; i < obj.length; i++) {
                 if (obj[i].name === sender) {
-                    if (obj[i].coins === 0) {
+                    if (obj[i].coins == 0) {
                         bot.reply(msg, "You have no coins!");
                     } else {
                         bot.reply(msg, 'You have: ' + obj[i].coins + " coins left.");
@@ -304,9 +304,4 @@ var getServerChannelByName = function(server, name) {
         }
     }
     return channel;
-}
-
-//Gets the current users coins
-var getCurrentUserCoins = function getCurrentUserCoins(sender) {
-
 }
