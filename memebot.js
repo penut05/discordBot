@@ -32,27 +32,27 @@ bot.on("disconnected", () => {
     process.exit();
 });
 
-var message = {
-    info: "Memebot69 commands are: .help, .spin <Bet Amount>, .coins, .top, and .cowpies. To spin the slot machine, type .spin ###. Replace the ### with your bet ammount",
-    error: "Error encounted, please contact Pakoola.",
-    activeUser: "Already an active user.",
-    spinHelp: "Enter a valid entry. For example: .spin <bet ammount>",
-    addedToDatabase: "You have been added to the database.",
-    addMeDatabase: "Please type .addme to add youself to the database.",
-    spam: "FUCKING NORMIES, GET OFF OF MY FUCKING BOARD!!!!!@@!@!@",
-    cowpies1: "http://i.imgur.com/tY1Ij8w.jpg",
-    cowpies2: "",
-    shrug: "¯\_(ツ)_/¯"
-};
-
 bot.on("message", function(msg) {
+    var message = {
+        info: "Memebot69 commands are: .help, .spin <Bet Amount>, .coins, .top, and .cowpies. To spin the slot machine, type .spin ###. Replace the ### with your bet ammount",
+        error: "Error encounted, please contact Pakoola.",
+        activeUser: "Already an active user.",
+        spinHelp: "Enter a valid entry. For example: .spin <bet ammount>",
+        addedToDatabase: "You have been added to the database.",
+        addMeDatabase: "Please type .addme to add youself to the database.",
+        spam: "FUCKING NORMIES, GET OFF OF MY FUCKING BOARD!!!!!@@!@!@",
+        cowpies1: "http://i.imgur.com/tY1Ij8w.jpg",
+        cowpies2: "",
+        shrug: "¯\_(ツ)_/¯"
+    };
+
     var sender = msg.author.username;
     var server = getServerByNameWithMessage(msg, "thef00fRaidcallRIP");
     var channel = getChannelByUserMessageAuthorString(msg, msg.content.substr(6));
     var timestamp = new Date();
 
     if (msg.content.indexOf(".help") === 0) {
-        bot.sendMessage(msg, message.info.toString());
+        bot.sendMessage(msg, message.info);
     }
 
     if (msg.content.indexOf(".cowpies") === 0) {
@@ -151,70 +151,70 @@ bot.on("message", function(msg) {
         var machine_stuck = Math.floor((Math.random() * 1000) + 1);
 
         jsonfile.readFile(file, function(err, obj) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var users = obj;
-                    var inDataBase = false;
-                    var valid = false;
-                    var arrayLength = users.length;
-                    var msgString = "";
+            if (err) {
+                console.log(err);
+            } else {
+                var users = obj;
+                var inDataBase = false;
+                var valid = false;
+                var arrayLength = users.length;
+                var msgString = "";
 
-                    for (var i = 0; i < arrayLength; i++) {
-                        if (users[i].name == sender) {
-                            inDataBase = true;
-                            valid = true;
-                            inDataBase = true;
-                            if (userBet > users[i].coins) {
-                                bot.sendMessage(msg, "Fucking dirty slut you don't have that many coins to bet. ");
-                                break;
-                            } else {
-                                if (!isNaN(userBet) && userBet > 0) {
-                                    bot.sendMessage(msg, "| " + num1 + " | " + " | " + num2 + " | " + " | " + num3 + " |");
-                                    if (num1 == num2 && num1 == num3 && num2 == num3) {
-                                        if (num1 == 6 && num2 == 6 && num3 == 6) {
-                                            users[i].coins -= 50;
-                                            if (users[i].coins <= 0) {
-                                                users[i].coins == 0;
-                                                msgString += "Lose 50 coins. ";
-                                            } else {
-                                                msgString += "You now have 0 coins";
-                                            }
-                                        } else if (num1 == 7 && num2 == 7 && num3 == 7) {
-                                            users[i].coins += (userBet * 3);
-                                            msgString += "JACKPOT! You have gained " + userBet + " coins! ";
+                for (var i = 0; i < arrayLength; i++) {
+                    if (users[i].name == sender) {
+                        inDataBase = true;
+                        valid = true;
+                        inDataBase = true;
+                        if (userBet > users[i].coins) {
+                            bot.sendMessage(msg, "Fucking dirty slut you don't have that many coins to bet. ");
+                            break;
+                        } else {
+                            if (!isNaN(userBet) && userBet > 0) {
+                                bot.sendMessage(msg, "| " + num1 + " | " + " | " + num2 + " | " + " | " + num3 + " |");
+                                if (num1 == num2 && num1 == num3 && num2 == num3) {
+                                    if (num1 == 6 && num2 == 6 && num3 == 6) {
+                                        users[i].coins -= 50;
+                                        if (users[i].coins <= 0) {
+                                            users[i].coins == 0;
+                                            msgString += "Lose 50 coins. ";
                                         } else {
-                                            users[i].coins += userBet * 2.5;
-                                            msgString += "3 of a kind! You have gained " + userBet + " coins! ";
+                                            msgString += "You now have 0 coins";
                                         }
-                                    } else if (num1 == num2 || num1 == num3 || num2 == num3) {
-                                        users[i].coins += userBet;
-                                        msgString += "2 of a kind! You have gained " + userBet + " coins! ";
-                                        break;
+                                    } else if (num1 == 7 && num2 == 7 && num3 == 7) {
+                                        users[i].coins += (userBet * 3);
+                                        msgString += "JACKPOT! You have gained " + userBet + " coins! ";
                                     } else {
-                                        if (machine_stuck == 1) {
-                                            msgString += "Slot machine has malfunctioned in your favor..Gain 50 coins!!! ";
-                                            users[i].coins += 50;
-                                        } else {
-                                            users[i].coins -= userBet;
-                                            msgString += "You lose " + userBet + " coins. ";
-                                        }
+                                        users[i].coins += userBet * 2.5;
+                                        msgString += "3 of a kind! You have gained " + userBet + " coins! ";
                                     }
-                                } else {
-                                    bot.sendMessage(msg, message.spinHelp.toString());
+                                } else if (num1 == num2 || num1 == num3 || num2 == num3) {
+                                    users[i].coins += userBet;
+                                    msgString += "2 of a kind! You have gained " + userBet + " coins! ";
                                     break;
+                                } else {
+                                    if (machine_stuck == 1) {
+                                        msgString += "Slot machine has malfunctioned in your favor..Gain 50 coins!!! ";
+                                        users[i].coins += 50;
+                                    } else {
+                                        users[i].coins -= userBet;
+                                        msgString += "You lose " + userBet + " coins. ";
+                                    }
                                 }
+                            } else {
+                                bot.sendMessage(msg, message.spinHelp);
+                                break;
                             }
-
-                            if (users[i].coins <= 0) {
-                                bot.reply(msg, users[i].coins + " coins left. Reload!");
-                                users[i].coins += 10;
-                            }
-                            msgString += "Coins left: " + users[i].coins + " ";
-                            console.log(".spin by " + sender + " Bet: " + userBet);
                         }
+
+                        if (users[i].coins <= 0) {
+                            bot.reply(msg, users[i].coins + " coins left. Reload!");
+                            users[i].coins += 10;
+                        }
+                        msgString += "Coins left: " + users[i].coins + " ";
+                        console.log(".spin by " + sender + " Bet: " + userBet);
                     }
                 }
+            }
             if (msgString != "" && inDataBase) {
                 bot.reply(msg, msgString);
                 //Log all messages
@@ -228,11 +228,12 @@ bot.on("message", function(msg) {
                 bot.reply(msg, message.addMeDatabase);
             }
             //Write to JSON file with user info after spin user = obj
-            var record = users; jsonfile.writeFile(file, record, function(err) {
+            var record = users;
+            jsonfile.writeFile(file, record, function(err) {
                 //console.error(err)
             })
         })
-}
+    }
 });
 
 //**Kyle's Bot Logic for finding users**
