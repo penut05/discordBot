@@ -28,8 +28,9 @@ var file = '/home/justin/discordBot/users.json';
 var username = "";
 var password = "";
 jsonfile.readFile(userInformation, function(err, userData) {
-    username = userData.email;
-    password = userData.password;
+    var usrDta = userData;
+    username = usrDta.email;
+    password = usrDta.password;
 });
 
 bot.login(username, password);
