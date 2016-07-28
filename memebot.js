@@ -4,7 +4,6 @@ var request = require("request");
 
 var jsonfile = require("jsonfile");
 var util = require("util");
-var users = "";
 
 //UPDATE THESE FIELDS WHEN CHANGING SERVERS
 var userInformation = "/home/justin/discordBot/memebotUser.json";
@@ -62,7 +61,7 @@ bot.on("message", function(msg) {
         jsonfile.readFile(file, function(err, obj) {
             var userObj = obj;
             var allUsers = [];
-            for (var z = 0; i < obj.length; i++) {
+            for (var i = 0; i < obj.length; i++) {
                 allUsers.push(userObj[i].name);
             }
 
@@ -76,21 +75,18 @@ bot.on("message", function(msg) {
                     if (err) {
                         console.error(err);
                     }
-                })
+                });
                 bot.reply(msg, message.addedToDatabase);
                 console.log("Added " + sender + " to the user.json file. " + timestamp);
             } else if (allUsers.indexOf(sender) != -1) {
                 bot.reply(msg, message.activeUser);
             }
             bot.deleteMessage(msg);
-        })
+        });
     }
 
     if (msg.content.indexOf(".top") === 0) {
         jsonfile.readFile(file, function(err, obj) {
-            var curCoins = 0;
-            var leaderCoins = 0;
-            var leaderName = "";
             var max1 = 0;
             var max2 = 0;
             var max3 = 0;
@@ -122,14 +118,14 @@ bot.on("message", function(msg) {
                 bot.deleteMessage(msg);
                 bot.sendMessage(msg, "Top 3: 1st:" + max1Name + " - " + max1 + "  2nd: " + max2Name + " - " + max2 + "  3nd: " + max3Name + " - " + max3);
             }
-        })
+        });
     }
 
     if (msg.content.indexOf(".coins") === 0) {
         jsonfile.readFile(file, function(err, obj) {
             for (var i = 0; i < obj.length; i++) {
                 if (obj[i].name === sender) {
-                    if (obj[i].coins == 0) {
+                    if (obj[i].coins === 0) {
                         bot.reply(msg, "You have no coins!");
                     } else {
                         bot.reply(msg, "You have: " + obj[i].coins + " coins left.");
@@ -137,13 +133,13 @@ bot.on("message", function(msg) {
                 }
             }
             bot.deleteMessage(msg);
-        })
+        });
     }
 
     if (msg.content.indexOf(".spin") === 0) {
         bot.deleteMessage(msg);
-        var message = msg.toString();
-        var msgsplit = message.split(" ");
+        var usrMsg = msg.toString();
+        var msgsplit = usrMsg.split(" ");
         var userBet = parseInt(msgsplit[1]);
         var num1 = Math.floor((Math.random() * 7) + 1);
         var num2 = Math.floor((Math.random() * 7) + 1);
@@ -169,13 +165,13 @@ bot.on("message", function(msg) {
                             bot.sendMessage(msg, "Fucking dirty slut you don't have that many coins to bet. ");
                             break;
                         } else {
-                            if (!isNaN(userBet) && userBet > 0) {
+                            if (!isNaN(userBet) && (userBet > 0)) {
                                 bot.sendMessage(msg, "| " + num1 + " | " + " | " + num2 + " | " + " | " + num3 + " |");
                                 if (num1 == num2 && num1 == num3 && num2 == num3) {
                                     if (num1 == 6 && num2 == 6 && num3 == 6) {
                                         users[i].coins -= 50;
                                         if (users[i].coins <= 0) {
-                                            users[i].coins == 0;
+                                            users[i].coins === 0;
                                             msgString += "Lose 50 coins. ";
                                         } else {
                                             msgString += "You now have 0 coins";
@@ -215,7 +211,7 @@ bot.on("message", function(msg) {
                     }
                 }
             }
-            if (msgString != "" && inDataBase) {
+            if (msgString !== "" && inDataBase) {
                 bot.reply(msg, msgString);
                 //Log all messages
                 //fileLog.appendFile(logfile, msgString + "\n", function(err) {
@@ -231,8 +227,8 @@ bot.on("message", function(msg) {
             var record = users;
             jsonfile.writeFile(file, record, function(err) {
                 //console.error(err)
-            })
-        })
+            });
+        });
     }
 });
 
@@ -250,7 +246,7 @@ var getChannelByUserMessageAuthorString = function(message, name) {
         }
     }
     return channel;
-}
+};
 
 var getServerByNameWithMessage = function(message, name) {
     var server = null;
@@ -261,7 +257,7 @@ var getServerByNameWithMessage = function(message, name) {
         }
     }
     return server;
-}
+};
 
 var getServerByNameWithBot = function(bot, name) {
     var server = null;
@@ -272,7 +268,7 @@ var getServerByNameWithBot = function(bot, name) {
         }
     }
     return server;
-}
+};
 
 var findUserByName = function(message, name) {
     var server = getServerByNameWithMessage(message, "thef00fRaidcallRIP");
@@ -285,7 +281,7 @@ var findUserByName = function(message, name) {
         }
     }
     return user;
-}
+};
 
 var getServerChannelByName = function(server, name) {
     var channels = server.channels;
@@ -297,4 +293,4 @@ var getServerChannelByName = function(server, name) {
         }
     }
     return channel;
-}
+};
