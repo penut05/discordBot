@@ -215,12 +215,11 @@ bot.on("message", function(msg) {
             if (msgString != "" && inDataBase) {
                 bot.reply(msg, msgString);
                 //Log all messages
-                fileLog.appendFile(logfile, msgString + "\n", function(err) {
-                    if (err) {
-                        return console.log(err);
-                    }
-                });
-
+                //fileLog.appendFile(logfile, msgString + "\n", function(err) {
+                  //  if (err) {
+                    //    return console.log(err);
+                    //}
+                //});
             }
             if (!inDataBase) {
                 bot.reply(msg, message.addMeDatabase);
@@ -310,6 +309,6 @@ var getCurrentUserCoins = function(sender) {
                 }
             }
         }
+        return msg.toString();
     })
-    return msg.toString();
 }
