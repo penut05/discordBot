@@ -8,6 +8,7 @@ var util = require("util");
 //UPDATE THESE FIELDS WHEN CHANGING SERVERS
 var userInformation = "/home/justin/discordBot/memebotUser.json";
 var file = "/home/justin/discordBot/users.json";
+var logfile = "/home/justin/discordBot/log.txt";
 
 /*
 var username = "";
@@ -44,11 +45,9 @@ bot.on("message", function(msg) {
         cowpies2: "",
         shrug: "¯\_(ツ)_/¯"
     };
-
     var sender = msg.author.username;
     var server = getServerByNameWithMessage(msg, "thef00fRaidcallRIP");
     var channel = getChannelByUserMessageAuthorString(msg, msg.content.substr(6));
-    var timestamp = new Date();
 
     if (msg.content.indexOf(".help") === 0) {
         bot.sendMessage(msg, message.info);
@@ -214,11 +213,9 @@ bot.on("message", function(msg) {
             if (msgString !== "" && inDataBase) {
                 bot.reply(msg, msgString);
                 //Log all messages
-                //fileLog.appendFile(logfile, msgString + "\n", function(err) {
-                //  if (err) {
-                //    return console.log(err);
-                //}
-                //});
+                fileLog.appendFile(logfile, msgString + "\n", function(err) {
+                    console.log(err);
+                });
             }
             if (!inDataBase) {
                 bot.reply(msg, message.addMeDatabase);
