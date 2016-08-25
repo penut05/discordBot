@@ -43,7 +43,8 @@ bot.on("message", function(msg) {
         spam: "FUCKING NORMIES, GET OFF OF MY FUCKING BOARD!!!!!@@!@!@",
         cowpies1: "http://i.imgur.com/tY1Ij8w.jpg",
         cowpies2: "",
-        shrug: "¯\_(ツ)_/¯"
+        shrug: "¯\_(ツ)_/¯",
+        noCoins: "Fucking dirty slut you don't have that many coins to bet."
     };
     var sender = msg.author.username;
     var server = getServerByNameWithMessage(msg, "thef00fRaidcallRIP");
@@ -68,7 +69,6 @@ bot.on("message", function(msg) {
                 userObj.push({
                     "name": sender,
                     "coins": 10,
-                    "time": d
                 });
                 jsonfile.writeFile(file, userObj, function(err) {
                     if (err) {
@@ -82,6 +82,10 @@ bot.on("message", function(msg) {
             }
             bot.deleteMessage(msg);
         });
+    }
+
+    if(msg.content.indexOf(".harambe") === 0){
+        bot.sendMessage("!youtube " + sender +" https://www.youtube.com/watch?v=OJw3MmL-Omk");
     }
 
     if (msg.content.indexOf(".top") === 0) {
@@ -206,15 +210,17 @@ bot.on("message", function(msg) {
                             users[i].coins += 10;
                         }
                         msgString += "Coins left: " + users[i].coins + " ";
-                        console.log(".spin by " + sender + " Bet: " + userBet);
                     }
                 }
             }
             if (msgString !== "" && inDataBase) {
                 bot.reply(msg, msgString);
-                //Log all messages
+                console.log(".spin by " + sender + " Bet: " + userBet);
+                //Log all messages to log file on server log.txt
                 fileLog.appendFile(logfile, msgString + "\n", function(err) {
-                    console.log(err);
+                    if (err) {
+                        console.log(err);
+                    }
                 });
             }
             if (!inDataBase) {
@@ -226,7 +232,54 @@ bot.on("message", function(msg) {
                 //console.error(err)
             });
         });
-    }
+    } //End of .spin
+
+    //Format = .rps <choice> <wager> ie: .rps paper 100
+    if (msg.content.indexOf(".rps") === 0) {
+        var msgString - msg.toString();
+        var msgArray = msgString.split(" ");
+        var userChoice = msgArray[1].toLowerCase();
+        var wager = parseInt(msgArray[2]);
+
+        //Get computers answer .0 - 1
+        var computerChoice = "";
+        var compRandom = Math.random();
+        if (compRandom <= .33) {
+            computerChoice = "rock";
+        } else if (compRandom >= .33 && compRandom <= .66) {
+            computerChoice = "paper";
+        } else if (compRandom >= .66 && compRandom <= 1) {
+            computerChoice = "scissors";
+        }
+
+        //Check for user and validate coins
+        jsonfile.readFile(file, function(err, obj) {
+            var users = obj;
+            var inDataBase = false;
+            var valid = false;
+            for (var i = 0; i < arrayLength; i++) {
+                if (users[i].name == sender) {
+                    inDataBase = true;
+                    valid = true;
+                    inDataBase = true;
+                    if (wager > users[i].coins) {
+                        bot.sendMessage(msg, message.noCoins);
+                        break;
+                    } else if(userChoice != "scissors" || userChoice != "rock" || userChoice != "paper"){
+                        
+                    } else {
+                        if (!isNaN(wager) && (wager > 0) ) {
+
+                        }
+                    }
+                }
+            }
+        }); // End of readfile .rps
+    } //End of .rps
+
+    //=============================================================================
+    //EoF
+    //=============================================================================
 });
 
 //**Kyle's Bot Logic for finding users**
@@ -291,3 +344,7 @@ var getServerChannelByName = function(server, name) {
     }
     return channel;
 };
+
+var getComputerRPS = function() {
+
+}
