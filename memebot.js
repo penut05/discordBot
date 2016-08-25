@@ -236,7 +236,7 @@ bot.on("message", function(msg) {
 
     //Format = .rps <choice> <wager> ie: .rps paper 100
     if (msg.content.indexOf(".rps") === 0) {
-        var msgString - msg.toString();
+        var msgString = msg.toString();
         var msgArray = msgString.split(" ");
         var userChoice = msgArray[1].toLowerCase();
         var wager = parseInt(msgArray[2]);
