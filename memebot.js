@@ -84,9 +84,13 @@ bot.on("message", function(msg) {
         });
     }
 
+    /* 
+    * Kyles Bot hates mine...
+    
     if(msg.content.indexOf(".harambe") === 0){
         bot.sendMessage(msg, "!youtube https://www.youtube.com/watch?v=OJw3MmL-Omk");
     }
+    */
 
     if (msg.content.indexOf(".top") === 0) {
         jsonfile.readFile(file, function(err, obj) {
