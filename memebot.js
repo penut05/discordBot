@@ -11,6 +11,9 @@ var request = require("request");
 var jsonfile = require("jsonfile");
 var util = require("util");
 
+//Node package for writing files
+var fileLog = require('fs');
+
 //UPDATE THESE FIELDS WHEN CHANGING SERVERS
 var userInformation = "/home/justin/discordBot/memebotUser.json";
 var file = "/home/justin/discordBot/users.json";
