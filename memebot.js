@@ -264,6 +264,8 @@ bot.on("message", function(msg) {
 
         //Get computers answer .0 - 1
         var computerChoice = "";
+        var taco = getComputerRPSGuess();
+        console.log("Testing Taco: " + taco);
         var compRandom = Math.random();
         if (compRandom <= .33) {
             computerChoice = "rock";
@@ -366,6 +368,6 @@ var getServerChannelByName = function(server, name) {
     return channel;
 };
 
-var getComputerRPS = function() {
-
+var getComputerRPSGuess = function() {
+    return "Paper";
 }
