@@ -1,3 +1,9 @@
+// ****************************************
+//** Discord Bot v1.0 **
+//** Local Directory path /home/justin/discordBot **
+//**
+// ****************************************
+
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var request = require("request");
