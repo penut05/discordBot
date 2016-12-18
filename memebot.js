@@ -15,21 +15,22 @@ var util = require("util");
 var fileLog = require('fs');
 
 //UPDATE THESE FIELDS WHEN CHANGING SERVERS
-var userInformation = "/home/justin/discordBot/memebotUser.json";
+var loginInfo = "/home/justin/discordBot/login.json";
 var file = "/home/justin/discordBot/users.json";
 var logfile = "/home/justin/discordBot/log.txt";
 
 
-jsonfile.readFile(userInformation, function(err, obj) {
+jsonfile.readFile(loginInfo, function(err, obj) {
+    console.dir(obj);
     if (err) {
         console.log(err);
-    } else {
-        var userData = obj;
-        var username = userData.email;
-        var password = userData.password;
-        console.log("Loggin in using - Username: " + username + " Password: " + password);
-        bot.login(username, password);
     }
+
+    var userData = obj;
+    var username = userData.email;
+    var password = userData.password;
+    console.log("Loggin in using - Username: " + username + " Password: " + password);
+    bot.login(username, password);
 });
 
 
