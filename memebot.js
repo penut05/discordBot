@@ -280,7 +280,7 @@ bot.on("message", function(msg) {
 
         
         //Check for user and validate coins
-        set var testing = jsonfile.readFile(file, function(err, obj) { return true});
+        //set var testing = jsonfile.readFile(file, function(err, obj) { return true});
         
         jsonfile.readFile(file, function(err, obj) {
             var users = obj;
