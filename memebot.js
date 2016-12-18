@@ -20,16 +20,15 @@ var file = "/home/justin/discordBot/users.json";
 var logfile = "/home/justin/discordBot/log.txt";
 
 
+//Store User login information in login.json file
 jsonfile.readFile(loginInfo, function(err, obj) {
-    console.dir(obj);
     if (err) {
         console.log(err);
     }
-
     var userData = obj;
     var username = userData.email;
     var password = userData.password;
-    console.log("Loggin in using - Username: " + username + " Password: " + password);
+    //console.log("Loggin in using - Username: " + username + " Password: " + password);
     bot.login(username, password);
 });
 
@@ -279,7 +278,7 @@ bot.on("message", function(msg) {
             computerChoice = "scissors";
         }
 
-        /*
+        
         //Check for user and validate coins
         set var testing = jsonfile.readFile(file, function(err, obj) { return true});
         
@@ -305,7 +304,6 @@ bot.on("message", function(msg) {
                 }
             }
         }); // End of readfile .rps
-        */
 
     } //End of .rps
 
