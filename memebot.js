@@ -19,16 +19,14 @@ var userInformation = "/home/justin/discordBot/memebotUser.json";
 var file = "/home/justin/discordBot/users.json";
 var logfile = "/home/justin/discordBot/log.txt";
 
-/*
-var username = "";
-var password = "";
-jsonfile.readFile(userInformation, function(err, userData) {
-    username = userData.email;
-    password = userData.password;
-});
-*/
 
-bot.login("jjp0610@aol.com", "bot123");
+jsonfile.readFile(userInformation, function(err, userData) {
+    var username = userData[0].email;
+    var password = userData[0].password;
+    console.log("Loggin in using - Username: " + username + " Password: " + password);
+    bot.login(username, password);
+});
+
 
 //when the bot is ready
 bot.on("ready", function() {
@@ -275,7 +273,10 @@ bot.on("message", function(msg) {
             computerChoice = "scissors";
         }
 
+        /*
         //Check for user and validate coins
+        set var testing = jsonfile.readFile(file, function(err, obj) { return true});
+        
         jsonfile.readFile(file, function(err, obj) {
             var users = obj;
             var inDataBase = false;
@@ -298,15 +299,25 @@ bot.on("message", function(msg) {
                 }
             }
         }); // End of readfile .rps
+        */
+        
     } //End of .rps
 
     //=============================================================================
-    //EoF
+    //End of Bot Functions
     //=============================================================================
 });
 
-//**Kyle's Bot Logic for finding users**
-//--------------------------------------
+//****************************
+// My functions
+//****************************
+
+
+
+
+// ******************************************************
+// Kyle's bot logic for finding users in channels
+// ******************************************************
 var getChannelByUserMessageAuthorString = function(message, name) {
     var channel = null;
     channel = findUserByName(message, name);
@@ -367,7 +378,6 @@ var getServerChannelByName = function(server, name) {
     }
     return channel;
 };
-
-var getComputerRPSGuess = function() {
-    return "Paper";
-}
+//****************************
+// End of kyle's channel logic
+//****************************
