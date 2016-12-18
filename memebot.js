@@ -20,11 +20,16 @@ var file = "/home/justin/discordBot/users.json";
 var logfile = "/home/justin/discordBot/log.txt";
 
 
-jsonfile.readFile(userInformation, function(err, userData) {
-    var username = userData[0].email;
-    var password = userData[0].password;
-    console.log("Loggin in using - Username: " + username + " Password: " + password);
-    bot.login(username, password);
+jsonfile.readFile(userInformation, function(err, obj) {
+    if (err) {
+        console.log(err);
+    } else {
+        var userData = obj;
+        var username = userData[0].email;
+        var password = userData[0].password;
+        console.log("Loggin in using - Username: " + username + " Password: " + password);
+        bot.login(username, password);
+    }
 });
 
 
@@ -300,7 +305,7 @@ bot.on("message", function(msg) {
             }
         }); // End of readfile .rps
         */
-        
+
     } //End of .rps
 
     //=============================================================================
@@ -311,7 +316,6 @@ bot.on("message", function(msg) {
 //****************************
 // My functions
 //****************************
-
 
 
 
