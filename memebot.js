@@ -25,8 +25,8 @@ jsonfile.readFile(userInformation, function(err, obj) {
         console.log(err);
     } else {
         var userData = obj;
-        var username = userData[0].email;
-        var password = userData[0].password;
+        var username = userData.email;
+        var password = userData.password;
         console.log("Loggin in using - Username: " + username + " Password: " + password);
         bot.login(username, password);
     }
