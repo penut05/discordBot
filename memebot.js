@@ -55,15 +55,15 @@ bot.on('message', msg => {
     //var server = getServerByNameWithMessage(msg, "thef00fRaidcallRIP");
     //var channel = getChannelByUserMessageAuthorString(msg, msg.content.substr(6));
 
-    if (msg.content.indexOf(".help") === 0) {
-        bot.sendMessage(msg, message.info);
+    if (msg.content.startsWith(".help") === 0) {
+        msg.channel.sendMessage(msg, message.info);
         bot.deleteMessage(msg);
     }
 
-    if (msg.content.indexOf(".cowpies") === 0) {
-        bot.sendMessage(msg, message.cowpies1);
+    if (msg.content.startsWith(".cowpies") === 0) {
+        msg.channel.sendMessage(msg, message.cowpies1);
     }
-    if (msg.content.indexOf(".addme") === 0) {
+    if (msg.content.startsWith(".addme") === 0) {
         jsonfile.readFile(file, function(err, obj) {
             var userObj = obj;
             var allUsers = [];
@@ -81,10 +81,10 @@ bot.on('message', msg => {
                         console.error(err);
                     }
                 });
-                bot.reply(msg, message.addedToDatabase);
+                msg.reply(msg, message.addedToDatabase);
                 console.log("Added " + sender + " to the user.json file. " + timestamp);
             } else if (allUsers.indexOf(sender) != -1) {
-                bot.reply(msg, message.activeUser);
+                msg.reply(msg, message.activeUser);
             }
             bot.deleteMessage(msg);
         });
@@ -93,12 +93,12 @@ bot.on('message', msg => {
     /* 
     * Kyles Bot hates mine...
     
-    if(msg.content.indexOf(".harambe") === 0){
-        bot.sendMessage(msg, "!youtube https://www.youtube.com/watch?v=OJw3MmL-Omk");
+    if(msg.content.startsWith(".harambe") === 0){
+        msg.channel.sendMessage(msg, "!youtube https://www.youtube.com/watch?v=OJw3MmL-Omk");
     }
     */
 
-    if (msg.content.indexOf(".top") === 0) {
+    if (msg.content.startsWith(".top") === 0) {
         jsonfile.readFile(file, function(err, obj) {
             var max1 = 0;
             var max2 = 0;
@@ -129,19 +129,19 @@ bot.on('message', msg => {
                     }
                 }
                 bot.deleteMessage(msg);
-                bot.sendMessage(msg, "Top 3: 1st:" + max1Name + " - " + max1 + "  2nd: " + max2Name + " - " + max2 + "  3nd: " + max3Name + " - " + max3);
+                msg.channel.sendMessage(msg, "Top 3: 1st:" + max1Name + " - " + max1 + "  2nd: " + max2Name + " - " + max2 + "  3nd: " + max3Name + " - " + max3);
             }
         });
     }
 
-    if (msg.content.indexOf(".coins") === 0) {
+    if (msg.content.startsWith(".coins") === 0) {
         jsonfile.readFile(file, function(err, obj) {
             for (var i = 0; i < obj.length; i++) {
                 if (obj[i].name === sender) {
                     if (obj[i].coins === 0) {
-                        bot.reply(msg, "You have no coins!");
+                        msg.reply(msg, "You have no coins!");
                     } else {
-                        bot.reply(msg, "You have: " + obj[i].coins + " coins left.");
+                        msg.reply(msg, "You have: " + obj[i].coins + " coins left.");
                     }
                 }
             }
@@ -149,7 +149,7 @@ bot.on('message', msg => {
         });
     }
 
-    if (msg.content.indexOf(".spin") === 0) {
+    if (msg.content.startsWith(".spin") === 0) {
         var coins_won = 0;
         bot.deleteMessage(msg);
         var usrMsg = msg.toString();
@@ -176,11 +176,11 @@ bot.on('message', msg => {
                         valid = true;
                         inDataBase = true;
                         if (userBet > users[i].coins) {
-                            bot.sendMessage(msg, message.noCoins);
+                            msg.channel.sendMessage(msg, message.noCoins);
                             break;
                         } else {
                             if (!isNaN(userBet) && (userBet > 0)) {
-                                bot.sendMessage(msg, "| " + num1 + " | " + " | " + num2 + " | " + " | " + num3 + " |");
+                                msg.channel.sendMessage(msg, "| " + num1 + " | " + " | " + num2 + " | " + " | " + num3 + " |");
                                 if (num1 == num2 && num1 == num3 && num2 == num3) {
                                     if (num1 == 6 && num2 == 6 && num3 == 6) {
                                         users[i].coins -= 50;
@@ -213,13 +213,13 @@ bot.on('message', msg => {
                                     }
                                 }
                             } else {
-                                bot.sendMessage(msg, message.spinHelp);
+                                msg.channel.sendMessage(msg, message.spinHelp);
                                 break;
                             }
                         }
 
                         if (users[i].coins <= 0) {
-                            bot.reply(msg, users[i].coins + " coins left. Reload!");
+                            msg.reply(msg, users[i].coins + " coins left. Reload!");
                             users[i].coins += 10;
                         }
                         msgString += "Coins left: " + users[i].coins + " ";
@@ -227,7 +227,7 @@ bot.on('message', msg => {
                 }
             }
             if (msgString !== "" && inDataBase) {
-                bot.reply(msg, msgString);
+                msg.reply(msg, msgString);
                 console.log(".spin by " + sender + " Bet: " + userBet);
                 //Log all messages to log file on server log.txt
                 fileLog.appendFile(logfile, msgString + "\n", function(err) {
@@ -239,7 +239,7 @@ bot.on('message', msg => {
 
             //If Bot couldnt find that user in database
             if (!inDataBase) {
-                bot.reply(msg, message.addMeDatabase);
+                msg.reply(msg, message.addMeDatabase);
             }
 
             //Write to JSON file with user info after spin user = obj
@@ -252,7 +252,7 @@ bot.on('message', msg => {
 
     //** Rock, Paper, Scissors
     //Format = .rps <choice> <wager> ie: .rps paper 100
-    if (msg.content.indexOf(".rps") === 0) {
+    if (msg.content.startsWith(".rps") === 0) {
         var msgString = msg.toString();
         var msgArray = msgString.split(" ");
         var userChoice = msgArray[1].toLowerCase();
@@ -285,7 +285,7 @@ bot.on('message', msg => {
                     valid = true;
                     inDataBase = true;
                     if (wager > users[i].coins) {
-                        bot.sendMessage(msg, message.noCoins);
+                        msg.channel.sendMessage(msg, message.noCoins);
                         break;
                     } else if(userChoice != "scissors" || userChoice != "rock" || userChoice != "paper"){
                         
