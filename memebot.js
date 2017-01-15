@@ -57,7 +57,7 @@ bot.on('message', msg => {
 
     if (msg.content.startsWith(".help")) {
         msg.channel.sendMessage(message.info);
-        bot.deleteMessage(msg);
+        //bot.deleteMessage(msg);
     }
 
     if (msg.content.startsWith(".cowpies")) {
@@ -86,7 +86,7 @@ bot.on('message', msg => {
             } else if (allUsers.indexOf(sender) != -1) {
                 msg.reply(msg, message.activeUser);
             }
-            bot.deleteMessage(msg);
+            //bot.deleteMessage(msg);
         });
     }
 
@@ -128,7 +128,7 @@ bot.on('message', msg => {
                         max3Name = obj[i].name;
                     }
                 }
-                bot.deleteMessage(msg);
+                //bot.deleteMessage(msg);
                 msg.channel.sendMessage(msg, "Top 3: 1st:" + max1Name + " - " + max1 + "  2nd: " + max2Name + " - " + max2 + "  3nd: " + max3Name + " - " + max3);
             }
         });
@@ -145,13 +145,13 @@ bot.on('message', msg => {
                     }
                 }
             }
-            bot.deleteMessage(msg);
+            //bot.deleteMessage(msg);
         });
     }
 
     if (msg.content.startsWith(".spin")) {
         var coins_won = 0;
-        bot.deleteMessage(msg);
+        //bot.deleteMessage(msg);
         var usrMsg = msg.toString();
         var msgsplit = usrMsg.split(" ");
         var userBet = parseInt(msgsplit[1]);
