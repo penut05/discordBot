@@ -10,8 +10,8 @@ client.on('ready', () => {
   console.log('I am ready!');
 });
 
-client.on('message', msg => {
-    if (msg.content === '!test') {
+client.on('message', message => {
+    if (message.content === '!test') {
         message.reply('Fk Shimko');
     }
 });
