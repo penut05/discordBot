@@ -52,8 +52,8 @@ bot.on('message', msg => {
         noCoins: "Fucking dirty slut you don't have that many coins to bet."
     };
     var sender = msg.author.username;
-    var server = getServerByNameWithMessage(msg, "thef00fRaidcallRIP");
-    var channel = getChannelByUserMessageAuthorString(msg, msg.content.substr(6));
+    //var server = getServerByNameWithMessage(msg, "thef00fRaidcallRIP");
+    //var channel = getChannelByUserMessageAuthorString(msg, msg.content.substr(6));
 
     if (msg.content.indexOf(".help") === 0) {
         bot.sendMessage(msg, message.info);
