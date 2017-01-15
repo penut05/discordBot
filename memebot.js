@@ -1,15 +1,17 @@
 // ****************************************
-//** Discord Bot v1.0 **
+//** Discord Bot v2.0 **
 //** Local Directory path /home/justin/discordBot **
 //**
 // ****************************************
+//New ES6 Node/Javascript stuff
+'use strict'
 
-var Discord = require("discord.js");
-var bot = new Discord.Client();
-var request = require("request");
+const Discord = require("discord.js");
+const bot = new Discord.Client();
+const request = require("request");
 
-var jsonfile = require("jsonfile");
-var util = require("util");
+const jsonfile = require("jsonfile");
+const util = require("util");
 
 //Node package for writing files
 var fileLog = require('fs');
@@ -19,23 +21,12 @@ var loginInfo = "/home/justin/discordBot/login.json";
 var file = "/home/justin/discordBot/users.json";
 var logfile = "/home/justin/discordBot/log.txt";
 
-
-//Store User login information in login.json file
-jsonfile.readFile(loginInfo, function(err, obj) {
-    if (err) {
-        console.log(err);
-    }
-    var userData = obj;
-    var username = userData.email;
-    var password = userData.password;
-    //console.log("Loggin in using - Username: " + username + " Password: " + password);
-    bot.login(username, password);
-});
+bot.login("mMIiFIHW7SdxBoaMkyrUg3ICcnU3MDFe");
 
 
 //when the bot is ready
-bot.on("ready", function() {
-    console.log("Ready to begin! Serving in " + bot.channels.length + " channels");
+bot.on('ready', () => {
+  console.log("Ready to begin! Serving in " + bot.channels.length + " channels");
 });
 
 //when the bot disconnects
@@ -44,7 +35,7 @@ bot.on("disconnected", () => {
     process.exit();
 });
 
-bot.on("message", function(msg) {
+bot.on('message', msg => {
     var message = {
         info: "Memebot69 commands are: .help, .spin <Bet Amount>, .coins, .top, and .cowpies. To spin the slot machine, type .spin ###. Replace the ### with your bet ammount",
         error: "Error encounted, please contact Pakoola.",
