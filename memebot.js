@@ -56,7 +56,7 @@ bot.on('message', msg => {
     //var channel = getChannelByUserMessageAuthorString(msg, msg.content.substr(6));
 
     if (msg.content.startsWith(".help") === 0) {
-        msg.channel.sendMessage(msg, message.info);
+        msg.channel.sendMessage(message.info);
         bot.deleteMessage(msg);
     }
 
