@@ -8,7 +8,9 @@
 
 const Discord = require("discord.js");
 const bot = new Discord.Client();
-const request = require("request");
+
+//** Use Request to make calls to kyles bot, but cant call it anymore **
+//const request = require("request");
 
 const jsonfile = require("jsonfile");
 const util = require("util");
