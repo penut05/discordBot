@@ -55,15 +55,15 @@ bot.on('message', msg => {
     //var server = getServerByNameWithMessage(msg, "thef00fRaidcallRIP");
     //var channel = getChannelByUserMessageAuthorString(msg, msg.content.substr(6));
 
-    if (msg.content.startsWith(".help") === 0) {
+    if (msg.content.startsWith(".help")) {
         msg.channel.sendMessage(message.info);
         bot.deleteMessage(msg);
     }
 
-    if (msg.content.startsWith(".cowpies") === 0) {
+    if (msg.content.startsWith(".cowpies")) {
         msg.channel.sendMessage(msg, message.cowpies1);
     }
-    if (msg.content.startsWith(".addme") === 0) {
+    if (msg.content.startsWith(".addme")) {
         jsonfile.readFile(file, function(err, obj) {
             var userObj = obj;
             var allUsers = [];
@@ -93,12 +93,12 @@ bot.on('message', msg => {
     /* 
     * Kyles Bot hates mine...
     
-    if(msg.content.startsWith(".harambe") === 0){
+    if(msg.content.startsWith(".harambe")){
         msg.channel.sendMessage(msg, "!youtube https://www.youtube.com/watch?v=OJw3MmL-Omk");
     }
     */
 
-    if (msg.content.startsWith(".top") === 0) {
+    if (msg.content.startsWith(".top")) {
         jsonfile.readFile(file, function(err, obj) {
             var max1 = 0;
             var max2 = 0;
@@ -134,11 +134,11 @@ bot.on('message', msg => {
         });
     }
 
-    if (msg.content.startsWith(".coins") === 0) {
+    if (msg.content.startsWith(".coins")) {
         jsonfile.readFile(file, function(err, obj) {
             for (var i = 0; i < obj.length; i++) {
                 if (obj[i].name === sender) {
-                    if (obj[i].coins === 0) {
+                    if (obj[i].coins) {
                         msg.reply(msg, "You have no coins!");
                     } else {
                         msg.reply(msg, "You have: " + obj[i].coins + " coins left.");
@@ -149,7 +149,7 @@ bot.on('message', msg => {
         });
     }
 
-    if (msg.content.startsWith(".spin") === 0) {
+    if (msg.content.startsWith(".spin")) {
         var coins_won = 0;
         bot.deleteMessage(msg);
         var usrMsg = msg.toString();
@@ -185,7 +185,7 @@ bot.on('message', msg => {
                                     if (num1 == 6 && num2 == 6 && num3 == 6) {
                                         users[i].coins -= 50;
                                         if (users[i].coins <= 0) {
-                                            users[i].coins === 0;
+                                            users[i].coins;
                                             msgString += "Lose 50 coins. ";
                                         } else {
                                             msgString += "You now have 0 coins";
@@ -252,7 +252,7 @@ bot.on('message', msg => {
 
     //** Rock, Paper, Scissors
     //Format = .rps <choice> <wager> ie: .rps paper 100
-    if (msg.content.startsWith(".rps") === 0) {
+    if (msg.content.startsWith(".rps")) {
         var msgString = msg.toString();
         var msgArray = msgString.split(" ");
         var userChoice = msgArray[1].toLowerCase();
