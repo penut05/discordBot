@@ -28,7 +28,7 @@ bot.login("MjcwMjM5NDM2OTgwMjI0MDAw.C11ALQ.3oWQPghx-HumtWRJEauE8s8rH2M");
 
 //when the bot is ready
 bot.on('ready', () => {
-  console.log("Ready to begin! Serving in " + bot.channels.length + " channels");
+  console.log("We live boiiiii");
 });
 
 //when the bot disconnects
@@ -61,7 +61,7 @@ bot.on('message', msg => {
     }
 
     if (msg.content.startsWith(".cowpies")) {
-        msg.channel.sendMessage(msg, message.cowpies1);
+        msg.channel.sendMessage(message.cowpies1);
     }
     if (msg.content.startsWith(".addme")) {
         jsonfile.readFile(file, function(err, obj) {
@@ -81,10 +81,10 @@ bot.on('message', msg => {
                         console.error(err);
                     }
                 });
-                msg.reply(msg, message.addedToDatabase);
+                msg.reply(message.addedToDatabase);
                 console.log("Added " + sender + " to the user.json file. " + timestamp);
             } else if (allUsers.indexOf(sender) != -1) {
-                msg.reply(msg, message.activeUser);
+                msg.reply(message.activeUser);
             }
             //bot.deleteMessage(msg);
         });
@@ -94,7 +94,7 @@ bot.on('message', msg => {
     * Kyles Bot hates mine...
     
     if(msg.content.startsWith(".harambe")){
-        msg.channel.sendMessage(msg, "!youtube https://www.youtube.com/watch?v=OJw3MmL-Omk");
+        msg.channel.sendMessage("!youtube https://www.youtube.com/watch?v=OJw3MmL-Omk");
     }
     */
 
@@ -129,7 +129,7 @@ bot.on('message', msg => {
                     }
                 }
                 //bot.deleteMessage(msg);
-                msg.channel.sendMessage(msg, "Top 3: 1st:" + max1Name + " - " + max1 + "  2nd: " + max2Name + " - " + max2 + "  3nd: " + max3Name + " - " + max3);
+                msg.channel.sendMessage("Top 3: 1st:" + max1Name + " - " + max1 + "  2nd: " + max2Name + " - " + max2 + "  3nd: " + max3Name + " - " + max3);
             }
         });
     }
@@ -139,9 +139,9 @@ bot.on('message', msg => {
             for (var i = 0; i < obj.length; i++) {
                 if (obj[i].name === sender) {
                     if (obj[i].coins) {
-                        msg.reply(msg, "You have no coins!");
+                        msg.reply("You have no coins!");
                     } else {
-                        msg.reply(msg, "You have: " + obj[i].coins + " coins left.");
+                        msg.reply("You have: " + obj[i].coins + " coins left.");
                     }
                 }
             }
@@ -176,11 +176,11 @@ bot.on('message', msg => {
                         valid = true;
                         inDataBase = true;
                         if (userBet > users[i].coins) {
-                            msg.channel.sendMessage(msg, message.noCoins);
+                            msg.channel.sendMessage(message.noCoins);
                             break;
                         } else {
                             if (!isNaN(userBet) && (userBet > 0)) {
-                                msg.channel.sendMessage(msg, "| " + num1 + " | " + " | " + num2 + " | " + " | " + num3 + " |");
+                                msg.channel.sendMessage("| " + num1 + " | " + " | " + num2 + " | " + " | " + num3 + " |");
                                 if (num1 == num2 && num1 == num3 && num2 == num3) {
                                     if (num1 == 6 && num2 == 6 && num3 == 6) {
                                         users[i].coins -= 50;
@@ -213,13 +213,13 @@ bot.on('message', msg => {
                                     }
                                 }
                             } else {
-                                msg.channel.sendMessage(msg, message.spinHelp);
+                                msg.channel.sendMessage(message.spinHelp);
                                 break;
                             }
                         }
 
                         if (users[i].coins <= 0) {
-                            msg.reply(msg, users[i].coins + " coins left. Reload!");
+                            msg.reply(users[i].coins + " coins left. Reload!");
                             users[i].coins += 10;
                         }
                         msgString += "Coins left: " + users[i].coins + " ";
@@ -227,7 +227,7 @@ bot.on('message', msg => {
                 }
             }
             if (msgString !== "" && inDataBase) {
-                msg.reply(msg, msgString);
+                msg.reply(msgString);
                 console.log(".spin by " + sender + " Bet: " + userBet);
                 //Log all messages to log file on server log.txt
                 fileLog.appendFile(logfile, msgString + "\n", function(err) {
@@ -239,7 +239,7 @@ bot.on('message', msg => {
 
             //If Bot couldnt find that user in database
             if (!inDataBase) {
-                msg.reply(msg, message.addMeDatabase);
+                msg.reply(message.addMeDatabase);
             }
 
             //Write to JSON file with user info after spin user = obj
@@ -285,7 +285,7 @@ bot.on('message', msg => {
                     valid = true;
                     inDataBase = true;
                     if (wager > users[i].coins) {
-                        msg.channel.sendMessage(msg, message.noCoins);
+                        msg.channel.sendMessage(message.noCoins);
                         break;
                     } else if(userChoice != "scissors" || userChoice != "rock" || userChoice != "paper"){
                         
