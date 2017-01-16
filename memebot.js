@@ -138,7 +138,7 @@ bot.on('message', msg => {
         jsonfile.readFile(file, function(err, obj) {
             for (var i = 0; i < obj.length; i++) {
                 if (obj[i].name === sender) {
-                    if (obj[i].coins) {
+                    if (obj[i].coins == 0) {
                         msg.reply("You have no coins!");
                     } else {
                         msg.reply("You have: " + obj[i].coins + " coins left.");
