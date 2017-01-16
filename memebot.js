@@ -8,6 +8,7 @@
 
 const Discord = require("discord.js");
 const bot = new Discord.Client();
+const config = require('./config.json'); //Login information
 
 //** Use Request to make calls to kyles bot, but cant call it anymore **
 //const request = require("request");
@@ -23,7 +24,7 @@ var loginInfo = "/home/justin/discordBot/login.json";
 var file = "/home/justin/discordBot/users.json";
 var logfile = "/home/justin/discordBot/log.txt";
 
-bot.login("MjcwMjM5NDM2OTgwMjI0MDAw.C11ALQ.3oWQPghx-HumtWRJEauE8s8rH2M");
+bot.login(config.token);
 
 
 //when the bot is ready
